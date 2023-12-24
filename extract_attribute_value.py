@@ -13,17 +13,20 @@ def extract_attribute_from_xml(xml_string, attribute_name):
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 # Function to send email
-def send_email(sender, recipient, subject, body):
+def send_email(sender, email_recipients, subject, body):
+    recipients_list = email_recipients.split(',')  # Split the email_recipients string into individual email addresses
+    recipients = [recipient.strip() for recipient in recipients_list]  # Remove leading/trailing spaces
+
     message = MIMEText(body)
     message['From'] = sender
-    message['To'] = recipient
-    message['Subject'] = subject
+    message['To'] = ", ".join(recipients)  # Join recipients list into a comma-separated string
 
     try:
         smtp_obj = smtplib.SMTP('smtp.gmail.com', 587)  # Change this to your SMTP server
         smtp_obj.starttls()
-        smtp_obj.login('idoneamani@gmail.com', 'uwdx zhlj bmqp ervv')  # Replace with your email credentials
-        smtp_obj.sendmail(sender, recipient, message.as_string())
+        smtp_obj.login('your email', 'your pass')  # Replace with your email credentials
+        smtp_obj.sendmail(sender, recipients, message.as_string())  # Send email to all recipients
+         
         smtp_obj.quit()
         print("Email sent successfully!")
     except Exception as e:
@@ -36,8 +39,7 @@ def main():
         return
     
     xml_file_path = sys.argv[1]
-    email_recipients = sys.argv[2]
-    
+    email_recipients = sys.argv[2]    
     try:
         with open(xml_file_path, 'r', encoding='utf-8') as file:
             xml_content = file.read()
@@ -51,16 +53,13 @@ def main():
     # Extract the value of the specified attribute from the XML content
     attribute_value = extract_attribute_from_xml(xml_content, desired_attribute)
 
-    # Output the extracted attribute value
-    print(f"The value of '{desired_attribute}' attribute is: {attribute_value}")
 
        # Set email variables
     email_from = "name@domain.com"
-    email_to = email_recipients
     email_subject = "New Checkmarx Scan is done!"
     email_body = f"Scan results URL={attribute_value}"
     # Send email
-    send_email(email_from, email_to, email_subject, email_body)
+    send_email(email_from, email_recipients, email_subject, email_body)
 
 
 if __name__ == "__main__":
