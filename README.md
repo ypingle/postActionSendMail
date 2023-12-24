@@ -2,7 +2,7 @@
 - Batch Script to be triggered as a post action by checkmarx SAST to send an email with SAST scan Results URL
     batch script expects to receive 2 arguments from SAST:
     - XML report file PATH
-    - Email recipient (for now it supports only one recipient)
+    - Email recipient (for now it supports only one recipient email address)
     
   - The batch script will call additional python script for URL extraction and sending via email
     script has variables for further customization if needed
