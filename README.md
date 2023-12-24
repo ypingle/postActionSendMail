@@ -5,7 +5,9 @@
     - Email recipient (for now it supports only one recipient)
     
   - The batch script will call additional python script for URL extraction and sending via email
-script has variables for further customization if needed
+    script has variables for further customization if needed
+    script output all execution info and errors to errors_log file
+
 Python Installation: Ensure that Python is installed on the Windows server. You can direct your customer to the official Python website (https://www.python.org/) to download and install the latest version of Python. During installation, they should ensure they select the option to add Python to the system PATH to make it easier to run Python scripts from the command line.
 
 In order to create a post scan action in sast APP  and send an email please follow these steps:
