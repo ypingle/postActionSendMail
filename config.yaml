@@ -10,5 +10,7 @@ Email_body: "Scan results URL:"
 SAST_url: Chckmarx_server_URL
 SAST_username: admin   
 SAST_password: 123456
+SAST_proxy:
+
 
 
